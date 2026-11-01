@@ -8,6 +8,8 @@
   <title>Instagram Analytics · LD LATTE</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./app.js" defer></script>
+  <script src="./real-config.js" defer></script>
+  <script src="./real-connect.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -41,6 +43,45 @@
           <div class="controls-right"><button class="btn btn-ghost" id="exportButton" type="button">↓ <span>Экспорт CSV</span></button><button class="btn btn-primary" id="syncButton" type="button"><span class="sync-icon">↻</span> <span id="syncButtonText">Обновить данные</span></button></div>
         </div>
         <div class="notice-line"><span class="notice-symbol">ⓘ</span> Важное уточнение: данные сгенерированы для демонстрации. У реальных аккаунтов охват не всегда можно суммировать как уникальную аудиторию, а недоступные метрики нельзя заменять нулями.</div>
+
+        <section id="liveInstagram" class="panel live-panel" aria-labelledby="liveTitle">
+          <div class="live-heading">
+            <div><div class="panel-eyebrow">РЕАЛЬНЫЙ API · ЭКСПЕРИМЕНТАЛЬНЫЙ РЕЖИМ</div>
+              <h2 id="liveTitle">Подключение собственного Instagram</h2>
+              <p>Отдельно от демонстрационных графиков. Данные запрашиваются через защищённую функцию Supabase, токен Instagram остаётся на сервере.</p>
+            </div>
+            <span class="live-status" id="liveConnectionStatus">Настройка подключения</span>
+          </div>
+          <form id="liveLoginForm" class="live-login" autocomplete="on" hidden>
+            <label for="liveEmail">Email тестового пользователя Supabase
+              <input id="liveEmail" type="email" autocomplete="username" placeholder="demo@example.com" required />
+            </label>
+            <label for="livePassword">Пароль Supabase (не Instagram!)
+              <input id="livePassword" type="password" autocomplete="current-password" required />
+            </label>
+            <button id="liveSignIn" class="btn btn-primary" type="submit">Войти</button>
+          </form>
+          <div class="live-actions">
+            <button id="liveRefresh" class="btn btn-outline" type="button" disabled>Получить реальные метрики</button>
+            <button id="liveLogout" class="btn btn-ghost" type="button" hidden>Выйти</button>
+          </div>
+          <p id="liveFeedback" class="live-feedback" role="status" aria-live="polite">Не настроено.</p>
+          <div id="liveResults" class="live-results" hidden>
+            <div class="live-account-summary"><strong id="liveHandle">—</strong><span>Получено из Meta API: <time id="liveUpdatedAt">—</time></span></div>
+            <div class="live-kpis">
+              <div><span>Подписчики</span><strong id="liveFollowers">—</strong></div>
+              <div><span>Публикации в профиле</span><strong id="liveMediaCount">—</strong></div>
+              <div><span>Просмотры (API, day)</span><strong id="liveViews">—</strong></div>
+              <div><span>Охват (API, day)</span><strong id="liveReach">—</strong></div>
+            </div>
+            <p class="live-note">Знак «—» означает, что метрика недоступна или ответ API не подтверждён. Эти данные не объединяются с синтетическими графиками ниже.</p>
+            <div class="table-scroll">
+              <table class="live-media-table"><thead><tr><th>Публикация</th><th>Тип</th><th>Лайки</th><th>Комментарии</th></tr></thead>
+                <tbody id="liveMediaBody"></tbody></table>
+            </div>
+            <p id="liveEmptyMedia" class="live-note" hidden>Публикаций для отображения нет.</p>
+          </div>
+        </section>
 
         <section aria-label="Ключевые показатели" class="metrics-grid" id="metricsGrid"></section>
         <section class="analytics-grid" aria-label="Графики и распределение">
