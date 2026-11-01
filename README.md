@@ -4,6 +4,16 @@
 
 A standalone static dashboard for the optional Instagram Analytics prototype. Built on top of the existing LD LATTE task-2 solution, which already contains the architecture, metric matrix, access prerequisites, implementation plan and testing plan.
 
+## Optional real Instagram test connection (feature branch)
+
+An **isolated experimental integration bridge** is available in the feature branch `feat/instagram-live-api-bridge`. The demo remains synthetic unless configured; live values appear only in a separate, explicitly labelled section.
+
+- Read [REAL_INSTAGRAM_SETUP.md](REAL_INSTAGRAM_SETUP.md) to configure a free test with your **own professional Instagram account**.
+- Server bridge: `supabase/functions/instagram-live/index.ts`. It uses Meta's official Instagram API and requires the designated Supabase Auth owner.
+- Public browser configuration: `real-config.js`. **Never** place a Meta token, Meta App Secret or Supabase Secret Key in this file.
+- Real API sync history, refreshable token rotation, OAuth and multiple actual accounts are **not implemented** yet. This stage uses a manually configured Instagram test token in server secrets.
+- The published `main` site is unchanged until the feature branch is reviewed and explicitly merged.
+
 ## What works in the prototype
 
 - Switch between **3 fictional Instagram professional accounts** (two active simulation profiles, one with a simulated expired token), or select all accounts.
