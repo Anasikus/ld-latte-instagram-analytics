@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07121f" />
+  <meta name="description" content="LD LATTE Instagram Analytics — интерактивный прототип на демонстрационных данных" />
+  <title>Instagram Analytics · LD LATTE</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Навигация">
+      <a href="#top" class="brand"><span class="brand-logo">LD<span class="brand-dot">.</span></span><span class="brand-title">LD LATTE <small>ANALYTICS LAB</small></span></a>
+      <div class="sidebar-label">РАБОЧАЯ ОБЛАСТЬ</div>
+      <nav class="nav-list" aria-label="Разделы">
+        <a href="#overview" class="nav-link active"><span class="nav-icon">▦</span> Обзор <span class="nav-arrow">↗</span></a>
+        <a href="#accounts" class="nav-link"><span class="nav-icon">◎</span> Аккаунты</a>
+        <a href="#publications" class="nav-link"><span class="nav-icon">▤</span> Публикации</a>
+        <a href="#architecture" class="nav-link"><span class="nav-icon">◇</span> Архитектура</a>
+      </nav>
+      <div class="sidebar-grow"></div>
+      <div class="sidebar-note"><span class="status-dot"></span><div><strong>Демонстрационный режим</strong><small>Без Meta API, токенов и настоящих аккаунтов</small></div></div>
+      <div class="sidebar-footer">PROTOTYPE v1.0 <span>·</span> LD LATTE</div>
+    </aside>
+
+    <main id="top" class="content">
+      <header class="topbar">
+        <div class="breadcrumbs">Рабочая область <span>/</span> <strong>Instagram Analytics</strong></div>
+        <div class="topbar-right"><span class="demo-label"><span class="status-dot"></span> SIMULATED DATA</span><span class="avatar">LD</span></div>
+      </header>
+      <div class="page-inner">
+        <section class="hero" id="overview">
+          <div class="hero-content"><div class="eyebrow"><span class="star">✦</span> ПЛАТФОРМА АНАЛИТИКИ · ПРОТОТИП</div><h1>Instagram <em>Analytics</em></h1><p>Единое пространство для мониторинга нескольких профессиональных аккаунтов, статистики публикаций и контроля синхронизации.</p><div class="hero-meta"><span>◈ 3 тестовых подключения</span><span>◷ Последние 90 дней</span><span>▣ Данные синтетические</span></div></div>
+          <div class="hero-art" aria-hidden="true"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="hero-circle"><div class="hero-circle-inner">◎</div></div></div>
+        </section>
+
+        <div class="control-row">
+          <div class="controls-left"><label class="control-label" for="accountSelect">АККАУНТ</label><select id="accountSelect" aria-label="Выбрать Instagram аккаунт"><option value="all">Все аккаунты</option></select><label class="control-label" for="periodSelect">ПЕРИОД</label><select id="periodSelect" aria-label="Период статистики"><option value="7">7 дней</option><option value="30" selected>30 дней</option><option value="90">90 дней</option></select></div>
+          <div class="controls-right"><button class="btn btn-ghost" id="exportButton" type="button">↓ <span>Экспорт CSV</span></button><button class="btn btn-primary" id="syncButton" type="button"><span class="sync-icon">↻</span> <span id="syncButtonText">Обновить данные</span></button></div>
+        </div>
+        <div class="notice-line"><span class="notice-symbol">ⓘ</span> Важное уточнение: данные сгенерированы для демонстрации. У реальных аккаунтов охват не всегда можно суммировать как уникальную аудиторию, а недоступные метрики нельзя заменять нулями.</div>
+
+        <section aria-label="Ключевые показатели" class="metrics-grid" id="metricsGrid"></section>
+        <section class="analytics-grid" aria-label="Графики и распределение">
+          <div class="panel trend-panel"><div class="panel-header"><div><div class="panel-eyebrow">ОБЗОР ПОКАЗАТЕЛЕЙ</div><h2>Динамика статистики</h2><p>Синтетический ежедневный ряд за выбранный период</p></div><div class="segmented" role="group" aria-label="Метрика на графике"><button class="segment active" id="viewsTab" data-metric="views" type="button">Просмотры</button><button class="segment" id="reachTab" data-metric="reach" type="button">Охват</button></div></div><div class="chart-legend"><span class="legend-dot"></span><span id="chartCaption">Просмотры · все аккаунты</span></div><div id="chartArea" class="chart-area" role="img" aria-label="График статистики"></div><div class="chart-footer"><span>По данным демо-снимков</span><span id="chartRange"></span></div></div>
+          <div class="panel breakdown-panel"><div class="panel-header"><div><div class="panel-eyebrow">РАСПРЕДЕЛЕНИЕ</div><h2>По аккаунтам</h2><p>Просмотры за выбранный период</p></div></div><div class="donut-row"><div class="donut" id="donutChart"><div class="donut-hole"><strong id="donutValue">—</strong><span>просмотров</span></div></div><div class="donut-legend" id="donutLegend"></div></div><div class="panel-bottom-caption">Кольцевая диаграмма показывает долю просмотров по аккаунтам.</div></div>
+        </section>
+
+        <section id="accounts" class="section-block"><div class="section-title-row"><div><div class="panel-eyebrow">ПОДКЛЮЧЕНИЯ</div><h2>Аккаунты Instagram</h2><p>Демонстрация нескольких аккаунтов и их состояния</p></div><button class="btn btn-outline" id="connectButton" type="button">＋ <span>Подключить аккаунт</span></button></div><div class="accounts-grid" id="accountsGrid"></div></section>
+
+        <section id="publications" class="section-block"><div class="section-title-row"><div><div class="panel-eyebrow">КОНТЕНТ</div><h2>Статистика публикаций</h2><p>Примеры метрик отдельных публикаций</p></div><span class="section-chip">DEMO INSIGHTS</span></div><div class="panel posts-panel"><div class="table-scroll"><table><thead><tr><th>Публикация</th><th>Аккаунт</th><th>Дата</th><th>Просмотры</th><th>Охват</th><th>Лайки</th><th>Сохранения</th></tr></thead><tbody id="postsBody"></tbody></table></div><div class="table-footer"><span id="postsCount">—</span><span>«—» означает недоступную метрику, а не ноль.</span></div></div></section>
+
+        <section id="architecture" class="section-block architecture"><div class="section-title-row"><div><div class="panel-eyebrow">ТЕХНИЧЕСКАЯ МОДЕЛЬ</div><h2>Как будет работать реальная интеграция</h2><p>Поток данных и контроль ошибок — следующий этап после прототипа</p></div></div>
+        <div class="flow-grid"><div class="flow-node"><span>01</span><strong>Meta OAuth</strong><small>Владелец выдаёт разрешения профессиональному аккаунту</small></div><div class="flow-arrow">→</div><div class="flow-node"><span>02</span><strong>Сервер</strong><small>Безопасно сохраняет токен и обрабатывает подключение</small></div><div class="flow-arrow">→</div><div class="flow-node"><span>03</span><strong>n8n</strong><small>По расписанию запрашивает insights и публикации</small></div><div class="flow-arrow">→</div><div class="flow-node"><span>04</span><strong>Supabase</strong><small>Upsert снимков, статусы, журнал синхронизации</small></div><div class="flow-arrow">→</div><div class="flow-node"><span>05</span><strong>Отчёт</strong><small>Графики, CSV, сообщения об ошибках</small></div></div>
+        <div class="details-grid"><div class="panel detail-panel"><div class="panel-eyebrow">ПРОВЕРКИ И НАДЁЖНОСТЬ</div><h3>Что заложено в модель</h3><ul><li>Изоляция статистики разных аккаунтов по ID подключения</li><li>Повторная синхронизация без дублирования снимков (upsert)</li><li>Истёкший токен → статус переподключения, без бесконечных повторов</li><li>429 / 5xx → ограниченные повторы, журнал ошибок</li><li>Отсутствующая метрика → <code>NULL</code> и причина, а не <code>0</code></li></ul></div><div class="panel detail-panel"><div class="panel-header compact"><div><div class="panel-eyebrow">ЖУРНАЛ ИМИТАЦИИ</div><h3>Последние синхронизации</h3></div><button class="text-button" id="resetButton" type="button">Сбросить демо</button></div><div id="syncLog" class="sync-log" aria-live="polite"></div></div></div></section>
+        <footer class="site-footer"><span>LD LATTE / INSTAGRAM ANALYTICS LAB</span><span>DEMO DATA ONLY · NO META API CONNECTION</span></footer>
+      </div>
+    </main>
+  </div>
+  <div class="toast-region" id="toastRegion" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
